@@ -1,0 +1,66 @@
+
+G:=AbelianGroup([13]);
+
+v:=[
+        <G.1, 1>,
+        <6*G.1, 1>,
+        <9*G.1, 1>,
+        <10*G.1, 1>
+    ];
+
+
+IntermediateQuotientsPrint(v,G); 
+
+
+
+
+The G-covering X->P2, G=Z13^1, with building data 
+ [
+<G.1, 1>,
+<6*G.1, 1>,
+<9*G.1, 1>,
+<10*G.1, 1>
+] 
+ has the following intermediate quotients 
+
+///////////////////////////////////////////
+Subgroups H of G of order 13^0
+ {
+<0>
+}
+ -------------------------
+The above subgroups H of G gives G/H-coverings X/H->P2 of P2 isomorphic to the 
+same T-covering of P2, where T=<T.1,..,T.1> is the group Z13^1. The building 
+data of the T-covering Y->P2 are the following:
+[
+<4*T.1, 1>,
+<11*T.1, 1>,
+<10*T.1, 1>,
+<T.1, 1>
+]
+-------------------------
+INVARIANTS OF THE MIN. RES. OF SING. S OF THE T-COVERING Y->P2
+Basket of singularities of Y = {* 3/13, 4/13, 5/13, 7/13^^2, 9/13 *}
+K_S^2 = -8
+Geometric Genus = 1
+Irregularity = 0
+Chi = 2
+Euler number = 32
+h^11 of S = 28
+Picard rank of S = 18
+Trascendental Classes of S = (1, 10, 1)
+The numerical class of the canonical divisor of S with respect to the ordered 
+basket 
+ [
+<1, 2, {* 7/13 *}>,
+<1, 3, {* 4/13 *}>,
+<1, 4, {* 3/13 *}>,
+<2, 3, {* 5/13 *}>,
+<2, 4, {* 7/13 *}>,
+<3, 4, {* 9/13 *}>
+] 
+ is 
+ K_S=f^*(9/13H) -5/13E1-10/13E2-8/13E3-6/13E4-4/13E5-2/13E6-9/13E7-6/13E8-3/13E\
+9-7/13E10-8/13E11-4/13E12-5/13E13-10/13E14-3/13E15-6/13E16-9/13E17
+-------------------------
+-------------------------

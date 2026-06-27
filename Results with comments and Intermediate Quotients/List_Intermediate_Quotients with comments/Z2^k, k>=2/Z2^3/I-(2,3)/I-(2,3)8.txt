@@ -1,0 +1,417 @@
+G:=AbelianGroup([2,2,2]); 
+
+v:=[
+        <G.3, 1>,
+        <G.1 + G.2, 2>,
+        <G.1 + G.2, 1>,
+        <G.1 + G.2 + G.3, 1>,
+        <G.2, 1>,
+        <G.2, 1>,
+        <G.1, 1>,
+        <G.1, 1>
+    ];
+
+IntermediateQuotientsPrint(v,G); 
+
+
+
+
+
+The G-covering X->P2, G=Z2^3, with building data 
+ [
+<G.3, 1>,
+<G.1 + G.2, 2>,
+<G.1 + G.2, 1>,
+<G.1 + G.2 + G.3, 1>,
+<G.2, 1>,
+<G.2, 1>,
+<G.1, 1>,
+<G.1, 1>
+] 
+ has the following intermediate quotients 
+
+///////////////////////////////////////////
+Subgroups H of G of order 2^2
+ {
+<G.1, G.2>
+}
+ -------------------------
+The above subgroups H of G gives G/H-coverings X/H->P2 of P2 isomorphic to the 
+same T-covering of P2, where T=<T.1,..,T.1> is the group Z2^1. The building data
+of the T-covering Y->P2 are the following:
+[
+<T.1, 1>,
+<T.1, 1>
+]
+-------------------------
+INVARIANTS OF THE MIN. RES. OF SING. S OF THE T-COVERING Y->P2
+Basket of singularities of Y = {* 1/2 *}
+K_S^2 = 8
+Geometric Genus = 0
+Irregularity = 0
+Chi = 1
+Euler number = 4
+h^11 of S = 2
+Picard rank of S = 2
+Trascendental Classes of S = (0, 0, 0)
+The numerical class of the canonical divisor of S with respect to the ordered 
+basket 
+ [
+<1, 2, {* 1/2 *}>
+] 
+ is 
+ K_S=f^*(-2H) 
+Surface: F2
+-------------------------
+-------------------------
+ {
+<G.1 + G.3, G.2>,
+<G.3, G.1>,
+<G.1, G.2 + G.3>,
+<G.3, G.2>
+}
+ -------------------------
+The above subgroups H of G gives G/H-coverings X/H->P2 of P2 isomorphic to the 
+same T-covering of P2, where T=<T.1,..,T.1> is the group Z2^1. The building data
+of the T-covering Y->P2 are the following:
+[
+<T.1, 1>,
+<T.1, 2>,
+<T.1, 1>,
+<T.1, 1>,
+<T.1, 1>
+]
+-------------------------
+INVARIANTS OF THE MIN. RES. OF SING. S OF THE T-COVERING Y->P2
+Basket of singularities of Y = {* 1/2^^14 *}
+K_S^2 = 0
+Geometric Genus = 1
+Irregularity = 0
+Chi = 2
+Euler number = 24
+h^11 of S = 20
+Picard rank of S = 15
+Trascendental Classes of S = (1, 5, 1)
+The numerical class of the canonical divisor of S with respect to the ordered 
+basket 
+ [
+<1, 2, {* 1/2^^2 *}>,
+<1, 3, {* 1/2 *}>,
+<1, 4, {* 1/2 *}>,
+<1, 5, {* 1/2 *}>,
+<2, 3, {* 1/2^^2 *}>,
+<2, 4, {* 1/2^^2 *}>,
+<2, 5, {* 1/2^^2 *}>,
+<3, 4, {* 1/2 *}>,
+<3, 5, {* 1/2 *}>,
+<4, 5, {* 1/2 *}>
+] 
+ is 
+ K_S=0
+Surface: K3 - A-(2,1)10 
+-------------------------
+-------------------------
+ {
+<G.3, G.1 + G.2>
+}
+ -------------------------
+The above subgroups H of G gives G/H-coverings X/H->P2 of P2 isomorphic to the 
+same T-covering of P2, where T=<T.1,..,T.1> is the group Z2^1. The building data
+of the T-covering Y->P2 are the following:
+[
+<T.1, 1>,
+<T.1, 1>,
+<T.1, 1>,
+<T.1, 1>
+]
+-------------------------
+INVARIANTS OF THE MIN. RES. OF SING. S OF THE T-COVERING Y->P2
+Basket of singularities of Y = {* 1/2^^6 *}
+K_S^2 = 2
+Geometric Genus = 0
+Irregularity = 0
+Chi = 1
+Euler number = 10
+h^11 of S = 8
+Picard rank of S = 8
+Trascendental Classes of S = (0, 0, 0)
+The numerical class of the canonical divisor of S with respect to the ordered 
+basket 
+ [
+<1, 2, {* 1/2 *}>,
+<1, 3, {* 1/2 *}>,
+<1, 4, {* 1/2 *}>,
+<2, 3, {* 1/2 *}>,
+<2, 4, {* 1/2 *}>,
+<3, 4, {* 1/2 *}>
+] 
+ is 
+ K_S=f^*(-H)
+Surface: Weak Del Pezzo of Degree 2
+-------------------------
+-------------------------
+ {
+<G.1 + G.3, G.2 + G.3>
+}
+ -------------------------
+The above subgroups H of G gives G/H-coverings X/H->P2 of P2 isomorphic to the 
+same T-covering of P2, where T=<T.1,..,T.1> is the group Z2^1. The building data
+of the T-covering Y->P2 are the following:
+[
+<T.1, 1>,
+<T.1, 1>,
+<T.1, 1>,
+<T.1, 1>,
+<T.1, 1>,
+<T.1, 1>
+]
+-------------------------
+INVARIANTS OF THE MIN. RES. OF SING. S OF THE T-COVERING Y->P2
+Basket of singularities of Y = {* 1/2^^15 *}
+K_S^2 = 0
+Geometric Genus = 1
+Irregularity = 0
+Chi = 2
+Euler number = 24
+h^11 of S = 20
+Picard rank of S = 16
+Trascendental Classes of S = (1, 4, 1)
+The numerical class of the canonical divisor of S with respect to the ordered 
+basket 
+ [
+<1, 2, {* 1/2 *}>,
+<1, 3, {* 1/2 *}>,
+<1, 4, {* 1/2 *}>,
+<1, 5, {* 1/2 *}>,
+<1, 6, {* 1/2 *}>,
+<2, 3, {* 1/2 *}>,
+<2, 4, {* 1/2 *}>,
+<2, 5, {* 1/2 *}>,
+<2, 6, {* 1/2 *}>,
+<3, 4, {* 1/2 *}>,
+<3, 5, {* 1/2 *}>,
+<3, 6, {* 1/2 *}>,
+<4, 5, {* 1/2 *}>,
+<4, 6, {* 1/2 *}>,
+<5, 6, {* 1/2 *}>
+] 
+ is 
+ K_S=0
+Surface: K3 - A-(2,1)11
+-------------------------
+-------------------------
+///////////////////////////////////////////
+Subgroups H of G of order 2^1
+ {
+<G.1>,
+<G.2>
+}
+ -------------------------
+The above subgroups H of G gives G/H-coverings X/H->P2 of P2 isomorphic to the 
+same T-covering of P2, where T=<T.1,..,T.2> is the group Z2^2. The building data
+of the T-covering Y->P2 are the following:
+[
+<T.1 + T.2, 1>,
+<T.1, 2>,
+<T.1, 1>,
+<T.2, 1>,
+<T.1, 1>,
+<T.1, 1>
+]
+-------------------------
+INVARIANTS OF THE MIN. RES. OF SING. S OF THE T-COVERING Y->P2
+Basket of singularities of Y = {* 1/2^^18 *}
+K_S^2 = 1
+Geometric Genus = 2
+Irregularity = 0
+Chi = 3
+Euler number = 35
+h^11 of S = 29
+Picard rank of S = 19
+Trascendental Classes of S = (2, 10, 2)
+The numerical class of the canonical divisor of S with respect to the ordered 
+basket 
+ [
+<2, 3, {* 1/2^^4 *}>,
+<2, 5, {* 1/2^^4 *}>,
+<2, 6, {* 1/2^^4 *}>,
+<3, 5, {* 1/2^^2 *}>,
+<3, 6, {* 1/2^^2 *}>,
+<5, 6, {* 1/2^^2 *}>
+] 
+ is 
+ K_S=f^*(1/2H) 
+Surface: (1,2) surface C-(2,2)5
+-------------------------
+-------------------------
+ {
+<G.1 + G.2>
+}
+ -------------------------
+The above subgroups H of G gives G/H-coverings X/H->P2 of P2 isomorphic to the 
+same T-covering of P2, where T=<T.1,..,T.2> is the group Z2^2. The building data
+of the T-covering Y->P2 are the following:
+[
+<T.1, 1>,
+<T.1, 1>,
+<T.2, 1>,
+<T.2, 1>,
+<T.2, 1>,
+<T.2, 1>
+]
+-------------------------
+INVARIANTS OF THE MIN. RES. OF SING. S OF THE T-COVERING Y->P2
+Basket of singularities of Y = {* 1/2^^14 *}
+K_S^2 = 0
+Geometric Genus = 1
+Irregularity = 0
+Chi = 2
+Euler number = 24
+h^11 of S = 20
+Picard rank of S = 16
+Trascendental Classes of S = (1, 4, 1)
+The numerical class of the canonical divisor of S with respect to the ordered 
+basket 
+ [
+<1, 2, {* 1/2^^2 *}>,
+<3, 4, {* 1/2^^2 *}>,
+<3, 5, {* 1/2^^2 *}>,
+<3, 6, {* 1/2^^2 *}>,
+<4, 5, {* 1/2^^2 *}>,
+<4, 6, {* 1/2^^2 *}>,
+<5, 6, {* 1/2^^2 *}>
+] 
+ is 
+ K_S=0
+Surface: K3 - A-(2,2)10
+-------------------------
+-------------------------
+ {
+<G.3>,
+<G.1 + G.2 + G.3>
+}
+ -------------------------
+The above subgroups H of G gives G/H-coverings X/H->P2 of P2 isomorphic to the 
+same T-covering of P2, where T=<T.1,..,T.2> is the group Z2^2. The building data
+of the T-covering Y->P2 are the following:
+[
+<T.2, 2>,
+<T.2, 1>,
+<T.2, 1>,
+<T.1 + T.2, 1>,
+<T.1 + T.2, 1>,
+<T.1, 1>,
+<T.1, 1>
+]
+-------------------------
+INVARIANTS OF THE MIN. RES. OF SING. S OF THE T-COVERING Y->P2
+Basket of singularities of Y = {* 1/2^^14 *}
+K_S^2 = 4
+Geometric Genus = 2
+Irregularity = 0
+Chi = 3
+Euler number = 32
+h^11 of S = 26
+Picard rank of S = 16
+Trascendental Classes of S = (2, 10, 2)
+The numerical class of the canonical divisor of S with respect to the ordered 
+basket 
+ [
+<1, 2, {* 1/2^^4 *}>,
+<1, 3, {* 1/2^^4 *}>,
+<2, 3, {* 1/2^^2 *}>,
+<4, 5, {* 1/2^^2 *}>,
+<6, 7, {* 1/2^^2 *}>
+] 
+ is 
+ K_S=f^*(H)
+Surface: Garbagnati Type2 D-(2,2)14
+-------------------------
+-------------------------
+ {
+<G.1 + G.3>,
+<G.2 + G.3>
+}
+ -------------------------
+The above subgroups H of G gives G/H-coverings X/H->P2 of P2 isomorphic to the 
+same T-covering of P2, where T=<T.1,..,T.2> is the group Z2^2. The building data
+of the T-covering Y->P2 are the following:
+[
+<T.1, 1>,
+<T.2, 2>,
+<T.2, 1>,
+<T.1 + T.2, 1>,
+<T.1 + T.2, 1>,
+<T.1 + T.2, 1>,
+<T.1, 1>,
+<T.1, 1>
+]
+-------------------------
+INVARIANTS OF THE MIN. RES. OF SING. S OF THE T-COVERING Y->P2
+Basket of singularities of Y = {* 1/2^^16 *}
+K_S^2 = 9
+Geometric Genus = 3
+Irregularity = 0
+Chi = 4
+Euler number = 39
+h^11 of S = 31
+Picard rank of S = 17
+Trascendental Classes of S = (3, 14, 3)
+The numerical class of the canonical divisor of S with respect to the ordered 
+basket 
+ [
+<1, 7, {* 1/2^^2 *}>,
+<1, 8, {* 1/2^^2 *}>,
+<2, 3, {* 1/2^^4 *}>,
+<4, 5, {* 1/2^^2 *}>,
+<4, 6, {* 1/2^^2 *}>,
+<5, 6, {* 1/2^^2 *}>,
+<7, 8, {* 1/2^^2 *}>
+] 
+ is 
+ K_S=f^*(3/2H) 
+Surface: Garbagnati Type3 E-(2,2)7
+-------------------------
+-------------------------
+///////////////////////////////////////////
+Subgroups H of G of order 2^0
+ {
+<0>
+}
+ -------------------------
+The above subgroups H of G gives G/H-coverings X/H->P2 of P2 isomorphic to the 
+same T-covering of P2, where T=<T.1,..,T.3> is the group Z2^3. The building data
+of the T-covering Y->P2 are the following:
+[
+<T.1 + T.2 + T.3, 1>,
+<T.2 + T.3, 2>,
+<T.2 + T.3, 1>,
+<T.1, 1>,
+<T.2, 1>,
+<T.2, 1>,
+<T.3, 1>,
+<T.3, 1>
+]
+-------------------------
+INVARIANTS OF THE MIN. RES. OF SING. S OF THE T-COVERING Y->P2
+Basket of singularities of Y = {* 1/2^^16 *}
+K_S^2 = 18
+Geometric Genus = 5
+Irregularity = 0
+Chi = 6
+Euler number = 54
+h^11 of S = 42
+Picard rank of S = 18
+Trascendental Classes of S = (5, 24, 5)
+The numerical class of the canonical divisor of S with respect to the ordered 
+basket 
+ [
+<2, 3, {* 1/2^^8 *}>,
+<5, 6, {* 1/2^^4 *}>,
+<7, 8, {* 1/2^^4 *}>
+] 
+ is 
+ K_S=f^*(3/2H) 
+Surface: General Type I-(2,3)8
+-------------------------
+-------------------------

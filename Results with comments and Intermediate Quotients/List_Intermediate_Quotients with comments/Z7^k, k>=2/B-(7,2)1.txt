@@ -1,0 +1,213 @@
+G:=AbelianGroup([7,7]); 
+
+v:=     [
+        <G.2, 1>,
+        <3*G.2, 1>,
+        <6*G.1 + 3*G.2, 1>,
+        <G.1, 1>
+    ];
+
+IntermediateQuotientsPrint(v,G);
+
+
+
+
+The G-covering X->P2, G=Z7^2, with building data 
+ [
+<G.2, 1>,
+<3*G.2, 1>,
+<6*G.1 + 3*G.2, 1>,
+<G.1, 1>
+] 
+ has the following intermediate quotients 
+
+///////////////////////////////////////////
+Subgroups H of G of order 7^1
+ {
+<6*G.1>,
+<6*G.1 + 3*G.2>
+}
+ -------------------------
+The above subgroups H of G gives G/H-coverings X/H->P2 of P2 isomorphic to the 
+same T-covering of P2, where T=<T.1,..,T.1> is the group Z7^1. The building data
+of the T-covering Y->P2 are the following:
+[
+<5*T.1, 1>,
+<T.1, 1>,
+<T.1, 1>
+]
+-------------------------
+INVARIANTS OF THE MIN. RES. OF SING. S OF THE T-COVERING Y->P2
+Basket of singularities of Y = {* 4/7^^2, 6/7 *}
+K_S^2 = -1
+Geometric Genus = 0
+Irregularity = 0
+Chi = 1
+Euler number = 13
+h^11 of S = 11
+Picard rank of S = 11
+Trascendental Classes of S = (0, 0, 0)
+The numerical class of the canonical divisor of S with respect to the ordered 
+basket 
+ [
+<1, 2, {* 4/7 *}>,
+<1, 3, {* 4/7 *}>,
+<2, 3, {* 6/7 *}>
+] 
+ is 
+ K_S=f^*(-3/7H) -2/7E1-4/7E2-2/7E3-4/7E4
+Surface: Rational
+-------------------------
+-------------------------
+ {
+<G.2>
+}
+ -------------------------
+The above subgroups H of G gives G/H-coverings X/H->P2 of P2 isomorphic to the 
+same T-covering of P2, where T=<T.1,..,T.1> is the group Z7^1. The building data
+of the T-covering Y->P2 are the following:
+[
+<6*T.1, 1>,
+<T.1, 1>
+]
+-------------------------
+INVARIANTS OF THE MIN. RES. OF SING. S OF THE T-COVERING Y->P2
+Basket of singularities of Y = {* 1/7 *}
+K_S^2 = 8
+Geometric Genus = 0
+Irregularity = 0
+Chi = 1
+Euler number = 4
+h^11 of S = 2
+Picard rank of S = 2
+Trascendental Classes of S = (0, 0, 0)
+The numerical class of the canonical divisor of S with respect to the ordered 
+basket 
+ [
+<1, 2, {* 1/7 *}>
+] 
+ is 
+ K_S=f^*(-9/7H) -5/7E1
+Surface: F7
+-------------------------
+-------------------------
+ {
+<6*G.1 + 6*G.2>,
+<6*G.1 + 4*G.2>
+}
+ -------------------------
+The above subgroups H of G gives G/H-coverings X/H->P2 of P2 isomorphic to the 
+same T-covering of P2, where T=<T.1,..,T.1> is the group Z7^1. The building data
+of the T-covering Y->P2 are the following:
+[
+<6*T.1, 1>,
+<4*T.1, 1>,
+<3*T.1, 1>,
+<T.1, 1>
+]
+-------------------------
+INVARIANTS OF THE MIN. RES. OF SING. S OF THE T-COVERING Y->P2
+Basket of singularities of Y = {* 1/7^^2, 2/7, 3/7, 4/7, 5/7 *}
+K_S^2 = -9
+Geometric Genus = 0
+Irregularity = 0
+Chi = 1
+Euler number = 21
+h^11 of S = 19
+Picard rank of S = 19
+Trascendental Classes of S = (0, 0, 0)
+The numerical class of the canonical divisor of S with respect to the ordered 
+basket 
+ [
+<1, 2, {* 4/7 *}>,
+<1, 3, {* 3/7 *}>,
+<1, 4, {* 1/7 *}>,
+<2, 3, {* 1/7 *}>,
+<2, 4, {* 5/7 *}>,
+<3, 4, {* 2/7 *}>
+] 
+ is 
+ K_S=f^*(3/7H) -2/7E1-4/7E2-3/7E3-2/7E4-1/7E5-5/7E6-5/7E7-1/7E8-2/7E9-3/7E10-4/\
+7E11-2/7E12
+Surface: Rational 
+-------------------------
+-------------------------
+ {
+<6*G.1 + 2*G.2>,
+<6*G.1 + G.2>,
+<6*G.1 + 5*G.2>
+}
+ -------------------------
+The above subgroups H of G gives G/H-coverings X/H->P2 of P2 isomorphic to the 
+same T-covering of P2, where T=<T.1,..,T.1> is the group Z7^1. The building data
+of the T-covering Y->P2 are the following:
+[
+<5*T.1, 1>,
+<T.1, 1>,
+<5*T.1, 1>,
+<3*T.1, 1>
+]
+-------------------------
+INVARIANTS OF THE MIN. RES. OF SING. S OF THE T-COVERING Y->P2
+Basket of singularities of Y = {* 2/7, 4/7^^2, 5/7^^2, 6/7 *}
+K_S^2 = -3
+Geometric Genus = 1
+Irregularity = 0
+Chi = 2
+Euler number = 27
+h^11 of S = 23
+Picard rank of S = 19
+Trascendental Classes of S = (1, 4, 1)
+The numerical class of the canonical divisor of S with respect to the ordered 
+basket 
+ [
+<1, 2, {* 4/7 *}>,
+<1, 3, {* 6/7 *}>,
+<1, 4, {* 5/7 *}>,
+<2, 3, {* 2/7 *}>,
+<2, 4, {* 4/7 *}>,
+<3, 4, {* 5/7 *}>
+] 
+ is 
+ K_S=f^*(3/7H) -2/7E1-4/7E2-1/7E9-2/7E10-3/7E11-4/7E12-2/7E13-2/7E14-4/7E15-1/7\
+E16-2/7E17-3/7E18
+Surface: A-(7,1)2 - Its minimal model is a K3 surface 
+-------------------------
+-------------------------
+///////////////////////////////////////////
+Subgroups H of G of order 7^0
+ {
+<0>
+}
+ -------------------------
+The above subgroups H of G gives G/H-coverings X/H->P2 of P2 isomorphic to the 
+same T-covering of P2, where T=<T.1,..,T.2> is the group Z7^2. The building data
+of the T-covering Y->P2 are the following:
+[
+<5*T.1 + 5*T.2, 1>,
+<T.1 + T.2, 1>,
+<T.1, 1>,
+<T.2, 1>
+]
+-------------------------
+INVARIANTS OF THE MIN. RES. OF SING. S OF THE T-COVERING Y->P2
+Basket of singularities of Y = {* 4/7^^7 *}
+K_S^2 = 1
+Geometric Genus = 3
+Irregularity = 0
+Chi = 4
+Euler number = 47
+h^11 of S = 39
+Picard rank of S = 27
+Trascendental Classes of S = (3, 12, 3)
+The numerical class of the canonical divisor of S with respect to the ordered 
+basket 
+ [
+<1, 2, {* 4/7^^7 *}>
+] 
+ is 
+ K_S=f^*(3/7H) -2/7E1-4/7E2-2/7E3-4/7E4-2/7E5-4/7E6-2/7E7-4/7E8-2/7E9-4/7E10-2/\
+7E11-4/7E12-2/7E13-4/7E14
+Surface: B-(7,2)1 - Its minimal model is a Horikawa surface
+-------------------------
+-------------------------

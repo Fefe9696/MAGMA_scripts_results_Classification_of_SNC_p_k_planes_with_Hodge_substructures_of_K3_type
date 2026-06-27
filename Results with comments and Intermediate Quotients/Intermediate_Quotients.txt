@@ -1,0 +1,109 @@
+// This script takes in input a group G\cong Z_p^k and a building data v of a G-cover of P2 and  it returns the invariants of any intermediate quotient. 
+
+load"Computation_BuildingData_up_to_Iso.txt";
+load"Strict_Transforms_Comp_Branch_locus.txt";
+
+Intermediate_Quotients:=function(v,G) 
+  G,psi:=AbelianGroup(G);
+  v:=[<psi(v[j][1]),v[j][2]>: j in [1..#v]];  
+  
+  p:=Exponent(G);
+  k:=#Generators(G);
+  S:=Subgroups(G);
+  Cases:=[];
+  for t in [1..k] do 
+   T:=AbelianGroup([p : f in [1..t]]);
+   Data:=[*[* Sprintf("Subgroups H of G of order %o^%o", Exponent(G), k-t), T*], [**]*];
+   //Append(~Data, [* Sprintf("Subgroups H of G of order %o", p^(k-t)), T*]); 
+    for j in [1..#S] do 
+    H := S[j]`subgroup;
+    if Order(G)/Order(H) eq p^t then 
+     Q, pi:=quo<G|H>;
+     if #Generators(H) ne 0 then 
+      Gens:=<(G!g) @@ psi : g in Generators(H)>;
+     else 
+      Gens:=<Id(G) @@ psi>; 
+     end if; 
+     is_iso, iso := IsIsomorphic(Q, T); 
+     Append(~Data[2], [*Gens, Q, pi, iso*]); 
+     end if; 
+   end for;
+   Append(~Cases, Data);
+   end for; 
+
+  Int_Quo:=[**];
+  for Data in Cases do 
+     List:=[*[*Data[1]*], [*{Data[2][1][1]}*]*];
+     T:=Data[1][2]; 
+  
+     for x in Data[2] do 
+      for n in [1..#List[2]] do 
+       Test:=true; 
+      for y in List[2][n] do 
+         for l in Data[2] do if l[1] eq y then Y:=l; break l; end if; end for;
+         if AreEquivalent([<x[4](x[3](v[j][1])),v[j][2]>: j in [1..#v]],[<Y[4](Y[3](v[j][1])),v[j][2]>: j in [1..#v]],T) then 
+             Include(~List[2][n], x[1]); Test:=false; 
+             break n; 
+         else break y; 
+         end if; 
+      end for;  
+     end for; 
+    if Test then 
+     Append(~List[2], {x[1]}); 
+    end if;
+    end for; 
+    Append(~Int_Quo, List); 
+   end for; 
+
+   return Int_Quo; 
+end function; 
+
+
+IntermediateQuotientsPrint:= procedure(v, G)
+    Int_Quo:= Intermediate_Quotients(v,G); 
+
+     printf "The G-covering X->P2, G=Z%o^%o, with building data \n %o \n has the following intermediate quotients \n\n", Exponent(G), #Generators(G), v; 
+
+    for Data in Int_Quo do 
+    
+    printf "///////////////////////////////////////////\n%o\n", Data[1][1][1]; 
+    
+    for j in [1..#Data[2]] do 
+       printf " %o\n ", Data[2][j];
+       printf "-------------------------\n"; 
+       printf "The above subgroups H of G gives G/H-coverings X/H->P2 of P2 isomorphic to the same T-covering of P2, where T=<T.1,..,T.%o> is the group Z%o^%o. The building data of the T-covering Y->P2 are the following:\n", #Generators(Data[1][1][2]), Exponent(Data[1][1][2]), #Generators(Data[1][1][2]); 
+    
+       S:=Data[2][j]; x:=SetToSequence(S)[1]; 
+       Q, pi:=quo<G|sub<G|[x[j]: j in [1..#x]]>>; T:=AbelianGroup([Exponent(G): j in [1..#Generators(Q)]]); 
+       Q_ab,r:=AbelianGroup(Q); 
+       is_iso, iso:=IsIsomorphic(Q_ab,T); 
+       Quo_v:=[<iso(r(pi(v[j][1]))),v[j][2]>: j in [1..#v]]; 
+       Quo_v:=[Quo_v[j]: j in [1..#Quo_v]| Quo_v[j][1] ne T!0];
+       Min_Set_Gen_Quo_v:=MinimalSubSet(T, [Quo_v[j][1]: j in [1..#Quo_v]]); 
+       f:=hom<T->T| SetToSequence(Min_Set_Gen_Quo_v)>; 
+       g:=f^-1;
+       Quo_v:=[<g(Quo_v[j][1]), Quo_v[j][2]>: j in [1..#Quo_v]]; 
+       printf "%o\n", Quo_v;
+       printf "-------------------------\n"; 
+       printf "INVARIANTS OF THE MIN. RES. OF SING. S OF THE T-COVERING Y->P2\n"; 
+       printf "Basket of singularities of Y = %o\n", Basket_Ab_cover(Quo_v,T);  
+       printf "K_S^2 = %o\n", Ksquare(Quo_v,T);  
+       pg:=pg_func_D_g(Quo_v,T);
+       printf "Geometric Genus = %o\n", pg; 
+       printf "Irregularity = %o\n", q_func_Dg(Quo_v,T); 
+       printf "Chi = %o\n", Chi_funct_D_g(Quo_v,T); 
+       printf "Euler number = %o\n", e_funct_Dg(Quo_v,T); 
+       h11_S:=h11(Quo_v,T);
+       printf "h^11 of S = %o\n", h11_S; 
+       h11_tra_S:=h11_tra(Quo_v,T); 
+       printf "Picard rank of S = %o\n", h11_S-h11_tra_S; 
+       printf "Trascendental Classes of S = (%o, %o, %o)\n", pg, h11_tra_S, pg; 
+       printf "%o\n", Num_Can_Div_short(Quo_v,T); 
+       printf "-------------------------\n"; 
+       printf "-------------------------\n"; 
+    
+    end for; 
+    
+      
+    end for; 
+end procedure;

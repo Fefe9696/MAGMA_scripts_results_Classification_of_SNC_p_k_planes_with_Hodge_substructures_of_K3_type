@@ -1,0 +1,65 @@
+G:=AbelianGroup([11]);
+
+v:=[
+        <G.1, 1>,
+        <6*G.1, 1>,
+        <7*G.1, 1>,
+        <8*G.1, 1>
+    ];
+
+
+IntermediateQuotientsPrint(v,G); 
+
+
+
+The G-covering X->P2, G=Z11^1, with building data 
+ [
+<G.1, 1>,
+<6*G.1, 1>,
+<7*G.1, 1>,
+<8*G.1, 1>
+] 
+ has the following intermediate quotients 
+
+///////////////////////////////////////////
+Subgroups H of G of order 11^0
+ {
+<0>
+}
+ -------------------------
+The above subgroups H of G gives G/H-coverings X/H->P2 of P2 isomorphic to the 
+same T-covering of P2, where T=<T.1,..,T.1> is the group Z11^1. The building 
+data of the T-covering Y->P2 are the following:
+[
+<7*T.1, 1>,
+<9*T.1, 1>,
+<5*T.1, 1>,
+<T.1, 1>
+]
+-------------------------
+INVARIANTS OF THE MIN. RES. OF SING. S OF THE T-COVERING Y->P2
+Basket of singularities of Y = {* 2/11, 3/11, 4/11, 5/11, 6/11, 8/11 *}
+K_S^2 = -6
+Geometric Genus = 1
+Irregularity = 0
+Chi = 2
+Euler number = 30
+h^11 of S = 26
+Picard rank of S = 18
+Trascendental Classes of S = (1, 8, 1)
+The numerical class of the canonical divisor of S with respect to the ordered 
+basket 
+ [
+<1, 2, {* 5/11 *}>,
+<1, 3, {* 4/11 *}>,
+<1, 4, {* 3/11 *}>,
+<2, 3, {* 8/11 *}>,
+<2, 4, {* 6/11 *}>,
+<3, 4, {* 2/11 *}>
+] 
+ is 
+ K_S=f^*(7/11H) -5/11E1-4/11E2-3/11E3-2/11E4-1/11E5-6/11E6-7/11E7-7/11E8-6/11E9\
+-2/11E10-4/11E11-6/11E12-3/11E13-4/11E14-8/11E15-8/11E16-4/11E17
+Surface: Its minimal model is a K3 surface
+-------------------------
+-------------------------

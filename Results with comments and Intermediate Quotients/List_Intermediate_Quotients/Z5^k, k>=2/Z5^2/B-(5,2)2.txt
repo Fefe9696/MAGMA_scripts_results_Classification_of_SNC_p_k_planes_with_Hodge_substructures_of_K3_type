@@ -1,0 +1,204 @@
+G:=AbelianGroup([5,5]); 
+
+v:=     [
+        <G.2, 1>,
+        <3*G.1 + 4*G.2, 1>,
+        <G.1, 1>,
+        <G.1, 1>
+    ];
+
+IntermediateQuotientsPrint(v,G);
+
+
+
+
+
+The G-covering X->P2, G=Z5^2, with building data 
+ [
+<G.2, 1>,
+<3*G.1 + 4*G.2, 1>,
+<G.1, 1>,
+<G.1, 1>
+] 
+ has the following intermediate quotients 
+
+///////////////////////////////////////////
+Subgroups H of G of order 5^1
+ {
+<4*G.1>
+}
+ -------------------------
+The above subgroups H of G gives G/H-coverings X/H->P2 of P2 isomorphic to the 
+same T-covering of P2, where T=<T.1,..,T.1> is the group Z5^1. The building data
+of the T-covering Y->P2 are the following:
+[
+<4*T.1, 1>,
+<T.1, 1>
+]
+-------------------------
+INVARIANTS OF THE MIN. RES. OF SING. S OF THE T-COVERING Y->P2
+Basket of singularities of Y = {* 1/5 *}
+K_S^2 = 8
+Geometric Genus = 0
+Irregularity = 0
+Chi = 1
+Euler number = 4
+h^11 of S = 2
+Picard rank of S = 2
+Trascendental Classes of S = (0, 0, 0)
+The numerical class of the canonical divisor of S with respect to the ordered 
+basket 
+ [
+<1, 2, {* 1/5 *}>
+] 
+ is 
+ K_S=f^*(-7/5H) -3/5E1
+-------------------------
+-------------------------
+ {
+<G.2>,
+<4*G.1 + 2*G.2>
+}
+ -------------------------
+The above subgroups H of G gives G/H-coverings X/H->P2 of P2 isomorphic to the 
+same T-covering of P2, where T=<T.1,..,T.1> is the group Z5^1. The building data
+of the T-covering Y->P2 are the following:
+[
+<3*T.1, 1>,
+<T.1, 1>,
+<T.1, 1>
+]
+-------------------------
+INVARIANTS OF THE MIN. RES. OF SING. S OF THE T-COVERING Y->P2
+Basket of singularities of Y = {* 3/5^^2, 4/5 *}
+K_S^2 = 1
+Geometric Genus = 0
+Irregularity = 0
+Chi = 1
+Euler number = 11
+h^11 of S = 9
+Picard rank of S = 9
+Trascendental Classes of S = (0, 0, 0)
+The numerical class of the canonical divisor of S with respect to the ordered 
+basket 
+ [
+<1, 2, {* 3/5 *}>,
+<1, 3, {* 3/5 *}>,
+<2, 3, {* 4/5 *}>
+] 
+ is 
+ K_S=f^*(-3/5H) -1/5E1-2/5E2-1/5E3-2/5E4
+-------------------------
+-------------------------
+ {
+<4*G.1 + 4*G.2>
+}
+ -------------------------
+The above subgroups H of G gives G/H-coverings X/H->P2 of P2 isomorphic to the 
+same T-covering of P2, where T=<T.1,..,T.1> is the group Z5^1. The building data
+of the T-covering Y->P2 are the following:
+[
+<4*T.1, 1>,
+<4*T.1, 1>,
+<T.1, 1>,
+<T.1, 1>
+]
+-------------------------
+INVARIANTS OF THE MIN. RES. OF SING. S OF THE T-COVERING Y->P2
+Basket of singularities of Y = {* 1/5^^4, 4/5^^2 *}
+K_S^2 = -7
+Geometric Genus = 0
+Irregularity = 0
+Chi = 1
+Euler number = 19
+h^11 of S = 17
+Picard rank of S = 17
+Trascendental Classes of S = (0, 0, 0)
+The numerical class of the canonical divisor of S with respect to the ordered 
+basket 
+ [
+<1, 2, {* 4/5 *}>,
+<1, 3, {* 1/5 *}>,
+<1, 4, {* 1/5 *}>,
+<2, 3, {* 1/5 *}>,
+<2, 4, {* 1/5 *}>,
+<3, 4, {* 4/5 *}>
+] 
+ is 
+ K_S=f^*(1/5H) -3/5E5-3/5E6-3/5E7-3/5E8
+-------------------------
+-------------------------
+ {
+<4*G.1 + 3*G.2>,
+<4*G.1 + G.2>
+}
+ -------------------------
+The above subgroups H of G gives G/H-coverings X/H->P2 of P2 isomorphic to the 
+same T-covering of P2, where T=<T.1,..,T.1> is the group Z5^1. The building data
+of the T-covering Y->P2 are the following:
+[
+<2*T.1, 1>,
+<T.1, 1>,
+<T.1, 1>,
+<T.1, 1>
+]
+-------------------------
+INVARIANTS OF THE MIN. RES. OF SING. S OF THE T-COVERING Y->P2
+Basket of singularities of Y = {* 2/5^^3, 4/5^^3 *}
+K_S^2 = -1
+Geometric Genus = 1
+Irregularity = 0
+Chi = 2
+Euler number = 25
+h^11 of S = 21
+Picard rank of S = 19
+Trascendental Classes of S = (1, 2, 1)
+The numerical class of the canonical divisor of S with respect to the ordered 
+basket 
+ [
+<1, 2, {* 2/5 *}>,
+<1, 3, {* 2/5 *}>,
+<1, 4, {* 2/5 *}>,
+<2, 3, {* 4/5 *}>,
+<2, 4, {* 4/5 *}>,
+<3, 4, {* 4/5 *}>
+] 
+ is 
+ K_S=f^*(1/5H) -2/5E1-1/5E2-2/5E3-1/5E4-2/5E5-1/5E6
+-------------------------
+-------------------------
+///////////////////////////////////////////
+Subgroups H of G of order 5^0
+ {
+<0>
+}
+ -------------------------
+The above subgroups H of G gives G/H-coverings X/H->P2 of P2 isomorphic to the 
+same T-covering of P2, where T=<T.1,..,T.2> is the group Z5^2. The building data
+of the T-covering Y->P2 are the following:
+[
+<4*T.1 + 3*T.2, 1>,
+<T.1, 1>,
+<T.2, 1>,
+<T.2, 1>
+]
+-------------------------
+INVARIANTS OF THE MIN. RES. OF SING. S OF THE T-COVERING Y->P2
+Basket of singularities of Y = {* 4/5^^5 *}
+K_S^2 = 1
+Geometric Genus = 2
+Irregularity = 0
+Chi = 3
+Euler number = 35
+h^11 of S = 29
+Picard rank of S = 25
+Trascendental Classes of S = (2, 4, 2)
+The numerical class of the canonical divisor of S with respect to the ordered 
+basket 
+ [
+<3, 4, {* 4/5^^5 *}>
+] 
+ is 
+ K_S=f^*(1/5H) 
+-------------------------
+-------------------------

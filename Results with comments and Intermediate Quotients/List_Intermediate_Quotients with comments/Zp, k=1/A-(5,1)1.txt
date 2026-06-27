@@ -1,0 +1,50 @@
+G:=AbelianGroup([5]);
+
+v:=[<G.1, 3>,<2*G.1, 1>];
+
+
+IntermediateQuotientsPrint(v,G);
+
+
+
+The G-covering X->P2, G=Z5^1, with building data 
+ [
+<G.1, 3>,
+<2*G.1, 1>
+] 
+ has the following intermediate quotients 
+
+///////////////////////////////////////////
+Subgroups H of G of order 5^0
+ {
+<0>
+}
+ -------------------------
+The above subgroups H of G gives G/H-coverings X/H->P2 of P2 isomorphic to the 
+same T-covering of P2, where T=<T.1,..,T.1> is the group Z5^1. The building data
+of the T-covering Y->P2 are the following:
+[
+<3*T.1, 3>,
+<T.1, 1>
+]
+-------------------------
+INVARIANTS OF THE MIN. RES. OF SING. S OF THE T-COVERING Y->P2
+Basket of singularities of Y = {* 3/5^^3 *}
+K_S^2 = -1
+Geometric Genus = 1
+Irregularity = 0
+Chi = 2
+Euler number = 25
+h^11 of S = 21
+Picard rank of S = 7
+Trascendental Classes of S = (1, 14, 1)
+The numerical class of the canonical divisor of S with respect to the ordered 
+basket 
+ [
+<1, 2, {* 3/5^^3 *}>
+] 
+ is 
+ K_S=f^*(1/5H) -1/5E1-2/5E2-1/5E3-2/5E4-1/5E5-2/5E6
+Surface: Its minimal model is a K3 surface
+-------------------------
+-------------------------

@@ -1,0 +1,2 @@
+// We use Intermediate_Quotient script for each result obtained by the Main_Script_Classification_Algorithm.txt to determine the invariants of the intermediate quotients. For each intermediate case, we also add a description of which type of surface it is.
+If an intermediate quotient turns out to be one of the surface obtained in the classification (e.g. A-(2,2)(1)), then we will denote the type of surface just by using that name, namely A-(2,2)(1). 

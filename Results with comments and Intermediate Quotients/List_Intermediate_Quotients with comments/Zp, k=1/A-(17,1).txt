@@ -1,0 +1,65 @@
+G:=AbelianGroup([17]);
+
+v:=[
+        <G.1, 1>,
+        <15*G.1, 1>,
+        <8*G.1, 1>,
+        <10*G.1, 1>
+    ];
+
+
+IntermediateQuotientsPrint(v,G); 
+
+
+
+The G-covering X->P2, G=Z17^1, with building data 
+ [
+<G.1, 1>,
+<15*G.1, 1>,
+<8*G.1, 1>,
+<10*G.1, 1>
+] 
+ has the following intermediate quotients 
+
+///////////////////////////////////////////
+Subgroups H of G of order 17^0
+ {
+<0>
+}
+ -------------------------
+The above subgroups H of G gives G/H-coverings X/H->P2 of P2 isomorphic to the 
+same T-covering of P2, where T=<T.1,..,T.1> is the group Z17^1. The building 
+data of the T-covering Y->P2 are the following:
+[
+<12*T.1, 1>,
+<10*T.1, 1>,
+<11*T.1, 1>,
+<T.1, 1>
+]
+-------------------------
+INVARIANTS OF THE MIN. RES. OF SING. S OF THE T-COVERING Y->P2
+Basket of singularities of Y = {* 2/17, 3/17, 4/17, 5/17, 7/17, 9/17 *}
+K_S^2 = -11
+Geometric Genus = 1
+Irregularity = 0
+Chi = 2
+Euler number = 35
+h^11 of S = 31
+Picard rank of S = 17
+Trascendental Classes of S = (1, 14, 1)
+The numerical class of the canonical divisor of S with respect to the ordered 
+basket 
+ [
+<1, 2, {* 2/17 *}>,
+<1, 3, {* 9/17 *}>,
+<1, 4, {* 7/17 *}>,
+<2, 3, {* 4/17 *}>,
+<2, 4, {* 5/17 *}>,
+<3, 4, {* 3/17 *}>
+] 
+ is 
+ K_S=f^*(13/17H) -14/17E1-7/17E2-7/17E3-14/17E4-9/17E5-10/17E6-11/17E7-12/17E8-\
+9/17E9-6/17E10-3/17E11-11/17E12-10/17E13-9/17E14-13/17E15-10/17E16
+Surface: Its minimal model is a K3 surface
+-------------------------
+-------------------------

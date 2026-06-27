@@ -1,0 +1,65 @@
+G:=AbelianGroup([19]);
+
+v:=[
+        <G.1, 1>,
+        <15*G.1, 1>,
+        <16*G.1, 1>,
+        <6*G.1, 1>
+    ];
+
+IntermediateQuotientsPrint(v,G); 
+
+
+
+
+The G-covering X->P2, G=Z19^1, with building data 
+ [
+<G.1, 1>,
+<15*G.1, 1>,
+<16*G.1, 1>,
+<6*G.1, 1>
+] 
+ has the following intermediate quotients 
+
+///////////////////////////////////////////
+Subgroups H of G of order 19^0
+ {
+<0>
+}
+ -------------------------
+The above subgroups H of G gives G/H-coverings X/H->P2 of P2 isomorphic to the 
+same T-covering of P2, where T=<T.1,..,T.1> is the group Z19^1. The building 
+data of the T-covering Y->P2 are the following:
+[
+<16*T.1, 1>,
+<12*T.1, 1>,
+<9*T.1, 1>,
+<T.1, 1>
+]
+-------------------------
+INVARIANTS OF THE MIN. RES. OF SING. S OF THE T-COVERING Y->P2
+Basket of singularities of Y = {* 2/19, 3/19, 4/19^^2, 11/19, 13/19 *}
+K_S^2 = -12
+Geometric Genus = 1
+Irregularity = 0
+Chi = 2
+Euler number = 36
+h^11 of S = 32
+Picard rank of S = 16
+Trascendental Classes of S = (1, 16, 1)
+The numerical class of the canonical divisor of S with respect to the ordered 
+basket 
+ [
+<1, 2, {* 4/19 *}>,
+<1, 3, {* 3/19 *}>,
+<1, 4, {* 13/19 *}>,
+<2, 3, {* 4/19 *}>,
+<2, 4, {* 11/19 *}>,
+<3, 4, {* 2/19 *}>
+] 
+ is 
+ K_S=f^*(15/19H) -14/19E1-13/19E2-15/19E3-10/19E4-5/19E5-5/19E6-10/19E7-15/19E8\
+-14/19E9-13/19E10-7/19E11-14/19E12-11/19E13-16/19E14-8/19E15
+Surface: Its minimal model is a K3 surface
+-------------------------
+-------------------------
