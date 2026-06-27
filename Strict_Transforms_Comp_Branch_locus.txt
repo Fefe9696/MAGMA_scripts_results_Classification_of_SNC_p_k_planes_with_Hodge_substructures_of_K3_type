@@ -1,0 +1,99 @@
+load"Basket_and_Invariants_AbCover.txt"; 
+
+
+// This function takes in input the building data Dg of the abelian cover and an irreducible component Delta_g of the branch locus with monodromy g in G\cong Z_p^k. The function returns the genus of the strict transform of the pullback of Delta_g in the minimal resolution of singularities of the abelian cover. 
+
+Genus_Strict_Transform:=function(v,G,Delta_g)
+   g:=Delta_g[1];
+   dg:=Delta_g[2]; 
+   if Delta_g notin v then return "You are not selecting a irreducible component of the branch locus"; end if; 
+   Sum:=dg*(dg-3); 
+   for Delta_h in v do 
+     h:=Delta_h[1];
+     dh:=Delta_h[2]; 
+     if h notin sub<G|g> then 
+       Sum:=Sum+dg*dh*(1-1/Exponent(G)); 
+     end if;   
+   end for; 
+   return 1/2*(Order(G)/Exponent(G))*Sum+1;
+end function; 
+
+// This function returns the self-intersection of the strict transform of the pullback of an irreducible component Delta_g of the branch locus of an abelian cover. 
+
+Self_Int_Irr_Comp:=function(v,G,j)
+   Delta_g:=v[j];
+   g:=Delta_g[1];
+   dg:=Delta_g[2]; 
+   if Delta_g notin v then return "You are not selecting a irreducible component of the branch locus"; end if; 
+   Sum:=Order(G)/(Exponent(G)^2)*dg^2; 
+   for i in [1..#v] do 
+    if i ne j then 
+     Delta_h:=v[i];
+     h:=Delta_h[1];
+     dh:=Delta_h[2];
+     Corr:=Sing_g_and_h(g,h,G);
+     if not IsEmpty(Corr) then 
+      Sum:=Sum-dg*dh*#Corr*Random(Corr); 
+     end if; 
+    end if; 
+   end for; 
+     return Sum; 
+end function;
+
+Coeff_HJ_Strict_Transform:=function(r) 
+    l:=#HJContinuedFraction(1/r);
+   Coeff_HJ:=[];
+   for i in [1..l] do 
+     Append(~Coeff_HJ, -(Denominator(HJContinuedFractionValue([HJContinuedFraction(1/r)[j] : j in [i..l]]))/Numerator(1/r)) );
+   end for; 
+   return Coeff_HJ;
+end function; 
+
+// This function takes in input the j-th irreducible component Delta_g of the branch locus with local monodromy g\in G\cong Z/p^k and it returns its strict transform in terms of the pullback of the component and  the Hirzebruch-Jung strings of the resolution, according to Proposition 1.15. 
+
+Strict_Transform_Delta_g:=function(v,G, j )
+   Delta_g:=v[j];
+   g:=Delta_g[1];
+   dg:=Delta_g[2]; 
+   Ord_Basket:=Basket_Ab_cover(v,G: Require_Ordered_Basket:=true); 
+  
+Vect_Coeff_HJ_Strict_Comp:=[];
+  for t in [1..#Ord_Basket] do 
+     if j eq Ord_Basket[t][1] then 
+       for s in Ord_Basket[t][3] do 
+        Append(~Vect_Coeff_HJ_Strict_Comp,Coeff_HJ_Strict_Transform(s)); 
+       end for; 
+     elif j eq Ord_Basket[t][2] then 
+        for s in Ord_Basket[t][3] do 
+        Append(~Vect_Coeff_HJ_Strict_Comp,Coeff_HJ_Strict_Transform(1/
+HJContinuedFractionValue(Reverse(HJContinuedFraction(1/s)))) ); 
+       end for; 
+     else Append(~Vect_Coeff_HJ_Strict_Comp, MultisetToSequence({*(RationalField()!0)^^(#Ord_Basket[t][3]*#HJContinuedFraction(1/Random(Ord_Basket[t][3])))*})); 
+     end if; 
+       end for; 
+
+    Tot_Vec_Strict_Trans:=[Vect_Coeff_HJ_Strict_Comp[j][i]: i in [1..#Vect_Coeff_HJ_Strict_Comp[j]], j in [1..#Vect_Coeff_HJ_Strict_Comp]];
+  
+if v[j][2] ne Exponent(G) then 
+ return Sprintf("The strict transform of the %o-th element of the building data, namely %o, with respect to the ordered basket \n %o \n is equal to \n Delta_g^Tilde=f^*(%oH)%o ", j, v[j], Ord_Basket, v[j][2]/Exponent(G), FormactVector(Tot_Vec_Strict_Trans)), [v[j][2]/Exponent(G)] cat Tot_Vec_Strict_Trans;
+
+  else 
+ 
+ return Sprintf("The strict transform of the %o-th element of the building data, namely %o, with respect to the ordered basket \n %o \n is equal to \n Delta_g^Tilde=f^*(H)%o ", j, v[j], Ord_Basket, FormactVector(Tot_Vec_Strict_Trans)), [v[j][2]/Exponent(G)] cat Tot_Vec_Strict_Trans;
+
+ end if; 
+end function; 
+
+// This function computes the self-intersection of the strict component of the pullback of a irreducible component of the branch locus 
+
+Self_Int_Strict_Trans_Via_Int_Matrix:=function(v,G,j)
+  Form_Vect, Vect:= Strict_Transform_Delta_g(v,G,j);
+  Ord_Basket:= Basket_Ab_cover(v,G: Require_Ordered_Basket:=true); 
+  Text, M:=Complete_Int_Pair_Matrix(v,G,Ord_Basket);        
+  Delta_gTildeSquare:=(Vector(Vect)*M)*Transpose(Matrix(Vector(Vect))); 
+  return Delta_gTildeSquare[1];
+end function;
+
+
+
+

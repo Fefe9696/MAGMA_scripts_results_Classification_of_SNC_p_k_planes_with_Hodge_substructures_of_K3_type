@@ -1,0 +1,167 @@
+////////////////////////////////
+
+load"Computation_BuildingData_up_to_Iso.txt";
+load"Strict_Transforms_Comp_Branch_locus.txt";
+
+function PropertySTAR(chi, v, p)
+  sum:=0;
+  if p eq 2 then
+    for j in [1..#v] do 
+     if chi(v[j][1]) ne 1 then 
+       sum:=sum+v[j][2];
+     end if; 
+    end for;
+    if sum eq 6 then return true; end if; 
+  end if;
+  if p eq 3 then
+     if Pardini_l_chi(chi^2,v) ne 2 then return false; end if; 
+     for j in [1..#v] do 
+     if chi(v[j][1]) ne 1 then 
+       sum:=sum+v[j][2];
+     end if; 
+    end for;
+    if sum eq 5 then return true; end if; 
+  end if;
+  if p ge 5 then 
+     if Pardini_l_chi(chi^(p-1),v) ne 1 then return false; end if; 
+     for j in [2..p-2] do 
+       if Pardini_l_chi(chi^j,v) ne 2 then return false; end if; 
+     end for; 
+     for j in [1..#v] do 
+     if chi(v[j][1]) ne 1 then 
+       sum:=sum+v[j][2];
+     end if; 
+    end for;
+    if sum eq 4 then return true; end if; 
+  end if; 
+  return false;
+end function;
+
+
+
+////////////////////////////////
+
+// This function compute the set of ordinate partitions of a number n with length k. For ordinate we mean for instance that [1,2,1] and [1,1,2] are two distinct partitions of 4 with length 3. 
+
+function OrderedPartitions(n, k)
+    if k eq 0 then
+        return (n eq 0) select [[]] else [];
+    elif n eq 0 then
+        return [];
+    end if;
+    compositions := [];
+    for i in [1..n] do
+        for part in OrderedPartitions(n - i, k - 1) do
+            Append(~compositions, [i] cat part);
+        end for;
+    end for;
+    return compositions;
+end function;
+
+////////////////////////////////
+
+
+// Here we are strongly assuming that G=Zp^k.
+// This function takes in input two natural integers card and sum_dg together with a group G and it returns any vector v of pairs consisting of a element g of the group G and a natural integer d_g, with the property that 
+// 1) the 1-norm of the vector v is equal to sum_dg
+// 2) the length of v is card 
+// 3) the first components of the entries of the vector v must generate the entire group G,
+// and also that 
+// 4) From Prop.2.5(3), any dg is less or equal than Max_lchi+(Max_lchi)/(p-1). Furthermore, from Prop. 2.2(1), any l_chi is less or equal than 3, so we fix Max_lchi=3. 
+// 5) v satisfies Property Star of Prop. 2.2. 
+
+// We point out that if one set Property_star:=false, then the algorithm is not filtering out the obtained cases for which Property_star holds. 
+
+
+Building_Data:=function(card, sum_dg, G: Max_lchi:=3, Property_star:=true)
+ p:=Exponent(G);
+ S:={}; S_trash:={};
+ gens:=Generators(G);
+ k:=#gens;
+ P:=OrderedPartitions(sum_dg, card);
+ FinalP:={};
+ for x in P do 
+   test:=true;
+   for dg in x do
+    if dg gt Max_lchi+(Max_lchi)/(p-1) then 
+      test:=false;
+      break dg;
+    end if;
+   end for;
+   if test then Include(~FinalP, x); end if;
+ end for;
+  P:={};
+  K:={g : g in G | g notin gens join {Id(G)}};
+  Sub:=Subsets(K,card-k);
+  FinalSub := {t join gens : t in Sub};
+  Sub:={};
+   Prod:=CartesianProduct(FinalSub,FinalP);
+  for t in Prod do 
+     set_g:=SetToSequence(t[1]);
+     set_dg:=t[2];
+       Include(~S, [<set_g[i], set_dg[i]> : i in [1..card]]);
+  end for;
+  
+
+// Let us verify for each of these cases Pardini equations: 
+
+Final_S:={};
+   CharG:= CharacterTable(G);
+   for DATA in S do 
+    test_Ex_Cover:=true; 
+    test_PropStar:=true;
+
+     if Property_star then 
+       test_Ex_K3:=false;
+     end if; 
+
+    for chi in CharG do 
+	lchi:=Pardini_l_chi(chi,DATA);
+    if (lchi gt Max_lchi) or not TestPardini(lchi) then 
+       test_Ex_Cover:=false; break chi;
+    end if;
+
+     if Property_star then 
+     if lchi eq 3 then 
+       test_Ex_K3:=true;
+        if  not PropertySTAR(chi,DATA,p) then 
+           test_PropStar:=false;
+           break chi; 
+        end if; 
+       end if; 
+      end if; 
+     end for; 
+     
+      if Property_star then 
+        if test_Ex_Cover and test_PropStar and test_Ex_K3 then 
+          Include(~Final_S, DATA);
+         end if;
+      else 
+      if test_Ex_Cover then 
+        Include(~Final_S, DATA);
+       end if;
+      end if;
+   end for;
+
+
+ // Finally, we only select one case for each orbit by the action of the group AutG
+
+  //  S_up_toIso:={};
+ //  Trash:=[]; 
+  //  for x in Final_S do 
+  //     if x notin Trash then 
+  //        Include(~S_up_toIso, x);
+  //        for y in Final_S do 
+   //           if AreEquivalent(x,y,G) then Append(~Trash,y); end if; 
+  //        end for;
+  //     end if; 
+  //  end for; 
+  //   Final_S:={};
+ 
+  //  return S_up_toIso;
+  return Set_up_to_Iso(Final_S,G);
+end function;
+
+
+
+	

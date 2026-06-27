@@ -1,0 +1,400 @@
+
+dim_h0_P2_D:=function(d)
+    if d lt 0 then return 0; end if;
+    return ((d+2)*(d+1))/2;
+end function; 
+
+////////////////////////////////
+
+// This function computes the geometric genus of the minimal resolution of singularities of an abelian cover of P2 with group G. It takes in input the set  [ <{chi : l_chi eq j }, j> , j in [0,..Max_lchi] ] of degrees of the line bundles l_chi :
+
+pg:=function(Ordered_Set_Lchi, G)
+  pg:=0; 
+  for x in Ordered_Set_Lchi do 
+    pg:=pg+ #x[1]*dim_h0_P2_D(x[2]-3);
+  end for; 
+  return pg;
+end function; 
+
+// This function computes pg in function of D_g
+
+load"Pardini_Ex_Cover_and_BuildingData.txt";
+
+pg_func_D_g:=function(v,G)
+   return pg(Set_of_Lchi_from_Dg(v,G), G);
+end function;
+////////////////////////////////
+
+// This function computes the Euler Characteristic of the structure sheaf of the minimal resolution of singularities of an abelian cover of P2. 
+
+Chi:=function(Ordered_Set_Lchi, G)
+    Chi:=Order(G)*1; 
+    for x in Ordered_Set_Lchi do
+      Chi:=Chi+1/2*#x[1]*x[2]*(x[2]-3);
+    end for; 
+    return Chi; 
+end function; 
+
+Chi_funct_D_g:=function(v,G)
+   return Chi(Set_of_Lchi_from_Dg(v,G), G);
+end function;
+
+// This function computes the irregularity of an abelian cover. We point out that we already proved the irregularity is always zero for abelian covers of P2
+
+q:=function(Ordered_Set_Lchi, G)
+   return -Chi(Ordered_Set_Lchi, G)+1+pg(Ordered_Set_Lchi, G);
+end function; 
+
+q_func_Dg:=function(v,G)
+    return -Chi_funct_D_g(v,G)+1+pg_func_D_g(v,G); 
+end function;  
+
+////////////////////////////////
+////////////////////////////////
+
+// This function computes the type of cyclic quotient singularities of a intersection point of Delta_g and Delta_h, two smooth irreducible components of the branch locus intersecting transversally.
+
+Sing_g_and_h:=function(g,h,G)
+    n:=#(sub<G|g> meet sub<G|h>);
+    G, phi:=AbelianGroup(G);
+    g:=phi(g); h:=phi(h);
+
+    if n ne 1 then 
+      for s in [1..Order(h)-1] do 
+        for a in [1..Order(g)-1] do
+        if s*h eq a*g then 
+          return {*((n-(n*a)/Order(g))/n)^^(Integers()!(Order(G)/#sub<G|g,h>))*};
+        end if; 
+       end for;
+      end for; 
+    else return {**}; 
+    end if; 
+end function; 
+
+// This function takes in input the set of building data of divisors Delta_g and it returns the basket of singularities of the correspondent abelian cover of P2, under the assumption that the branch locus is Simple Normal Crossing. If we also put the conditional input Require_Ordered_Basket equal to true, then it returns an ordered basket of singularities, in the following sense: 
+// an element of Basket_Ab_cover would be of triple  <i, j, Sing_ij>, where i and j refer to the i-th and j-th irreducible components Delta_i=v[i] and Delta_j=v[j] of the building data v of the cover, and Sing_ij is the set of cyclic quotient singularities lying over the intersection points of Delta_i and Delta_j. 
+// For example, 
+// G:=AbelianGroup([11]), 
+// v:=[<3*G.1, 1>,<4*G.1, 1>,<4*G.1, 1>,<4*G.1, 1>]; 
+// Basket_Ab_cover(v, G, : Require_Ordered_Basket:=true); 
+// The output in this case is 
+// [
+//    <1, 2, {* 2/5 *}>,
+//   <1, 3, {* 2/5 *}>,
+//    <1, 4, {* 2/5 *}>,
+//    <2, 3, {* 4/5 *}>,
+//    <2, 4, {* 4/5 *}>,
+//    <3, 4, {* 4/5 *}>
+//  ]
+// Thus, <1, 2, {* 2/5 *}> means that there is a singular point of type 2/5 over the intersection point between the first line with monodromy 3*G.1 and the first line with monodromy 
+// 4*G.1. 
+
+Basket_Ab_cover:=function(v,G: Require_Ordered_Basket:=false)
+   if not Require_Ordered_Basket then
+    Basket:={**};
+   for i in [1..#v] do 
+        Delta_g:=v[i];
+     for j in [i+1..#v] do 
+        Delta_h:=v[j];
+          g:=Delta_g[1]; h:=Delta_h[1];
+          Sing_gh:=Sing_g_and_h(g,h,G);
+          for j in [1..Delta_g[2]*Delta_h[2]] do 
+            Basket:=Basket join Sing_gh;
+           end for;
+     end for; 
+   end for; 
+   
+   return Basket;
+   else 
+    Basket:=[];
+    for i in [1..#v] do 
+        Delta_g:=v[i];
+     for j in [i+1..#v] do 
+        Delta_h:=v[j];
+          g:=Delta_g[1]; h:=Delta_h[1];
+          Sing_gh:=Sing_g_and_h(g,h,G);
+        if not IsEmpty(Sing_gh) then 
+          Tot_Sing_gh:={**};
+          for t in [1..Delta_g[2]*Delta_h[2]] do 
+               Tot_Sing_gh:= Tot_Sing_gh join Sing_gh;
+           end for;
+          Append(~Basket, <i,j, Tot_Sing_gh>);
+        end if; 
+     end for; 
+   end for; 
+   return Basket; 
+   end if; 
+end function;
+
+////////////////////////////////
+////////////////////////////////
+
+
+// This function computes the correction term to the self-intersection of the canonical divisor of a cyclic quotient singularity 1/n(1,a), according to Theorem 1.12 of our paper 
+
+Correction_Term_K_square_sing_point:=function(r)
+  HJ:=HJContinuedFraction(1/r); 
+  a:=Numerator(r); n:=Denominator(r); 
+  a_inv:=InverseMod(a, n);
+  CT:=(2+a+a_inv)/n-2; 
+  for j in [1..#HJ] do 
+    CT:=CT+(HJ[j]-2);  
+  end for; 
+  return CT;
+end function;
+
+// This function computes the correction term to the self-int of the canonical divisor of an abelian cover (under the assumption that the branch locus is Simple Normal Crossing)
+
+Correction_Term_Ksquare:=function(Basket)
+   CT:=0; 
+   for r in Basket do CT:=CT+ Correction_Term_K_square_sing_point(r); end for;
+   return CT;
+end function; 
+
+// Finally, this function computes the self-intersection of the canonical divisor of the minimal resolution of singularities of an abelian cover of P2 under the assumption that the branch locus is Simple Normal Crossing
+
+Ksquare:=function(v,G)
+  Basket:=Basket_Ab_cover(v,G); 
+  Pi_K_X_square:=-3; 
+  for j in [1..#v] do 
+     Pi_K_X_square:=Pi_K_X_square+(1-1/Order(v[j][1]))*v[j][2];
+  end for; 
+  return Order(G)*(Pi_K_X_square)^2 - Correction_Term_Ksquare(Basket); 
+end function; 
+
+// This function computes the Topological Euler characteristic e(S) of the minimal resolution of singularities of an abelian cover via Noether Formula
+
+e:=function(Ksquare,chi)
+   return 12*chi-Ksquare; // Noether formula
+end function; 
+
+// Alternatively, this function computes e(S) of the minimal resolution of singularities of an abelian cover of P2 in function of the building data Dg 
+
+Correction_Term_e_S_sing_point:=function(r)
+   HJ:=HJContinuedFraction(1/r); 
+   return #HJ; 
+end function;
+
+e_curve_of_P2:=function(d); 
+   return -d*(d-3); 
+end function; 
+
+e_funct_Dg:=function(v, G)
+     e:=3;
+     for j in [1..#v] do 
+       e:=e-(1-1/Order(v[j][1]))*e_curve_of_P2(v[j][2]);
+     end for;
+     for i in [1..#v] do 
+        for j in [i+1..#v] do 
+           e:=e+(1-1/Order(v[i][1]))*(1-1/Order(v[j][1]))*v[i][2]*v[j][2];
+        end for; 
+     end for; 
+     e:=Order(G)*e;
+
+    // Now let us consider the correction term due to the singularities of the cover
+
+    for i in [1..#v] do 
+        for j in [i+1..#v] do 
+           e:=e+( Order(G)/#sub<G|v[i][1],v[j][1]>-Order(G)/(Order(v[i][1])*Order(v[j][1])) )*v[i][2]*v[j][2];
+        end for; 
+     end for; 
+    
+    for r in Basket_Ab_cover(v,G) do 
+        e:=e+ Correction_Term_e_S_sing_point(r);
+    end for; 
+    return e; 
+end function; 
+
+////////////////////////
+
+// This function computes h^11 of the minimal resolution of singularities of an abelian cover 
+h11:=function(v,G)
+    return 10*Chi_funct_D_g(v,G)+2*q_func_Dg(v,G)-Ksquare(v,G);
+end function;
+
+// This function computes the rank of the trascedental part of H^11 of the minimal model of a Zp-cover of P2, which is a K3 surface. 
+h11_tra_K3:=function(v,G)
+    p:=Exponent(G); 
+    dim_Di:=[((v[j][2]+2)*(v[j][2]+1))/2-1 : j in [1..#v]]; 
+    sum_dim_Di:=&+dim_Di;
+     if p ne 2 then 
+       return (p-1)*(sum_dim_Di-7)-2; 
+     else 
+       return  sum_dim_Di-8;
+     end if; 
+end function; 
+
+
+// This function computes the rank of the trascendental part of H^11 of the minimal model of a Z_p^k-cover of P2 satisfying Property Star 
+
+h11_tra:=function(v,G)
+  h11_trasc:=0; 
+  G,psi:=AbelianGroup(G);
+  v:=[<psi(v[j][1]),v[j][2]>: j in [1..#v]]; 
+  p:=Exponent(G);
+  k:=#Generators(G);
+  S:=Subgroups(G);
+  Cases:=[];
+  t:=1;
+  T:=AbelianGroup([p : f in [1..t]]);
+  for j in [1..#S] do 
+    H := S[j]`subgroup;
+    if Order(G)/Order(H) eq p^t then 
+     Q, pi:=quo<G|H>;
+     is_iso, iso := IsIsomorphic(Q, T); 
+       Quo_v:=[<iso(pi(v[j][1])),v[j][2]>: j in [1..#v]]; 
+       Quo_v:=[Quo_v[j]: j in [1..#Quo_v]| Quo_v[j][1] ne T!0];
+       if pg_func_D_g(Quo_v,T) ne 0 then
+          h11_trasc:=h11_trasc+h11_tra_K3(Quo_v,T); 
+       end if; 
+    end if; 
+  end for; 
+   return h11_trasc;
+end function;
+
+// This function computes the Picard rank of the minimal resolution of singularities of a Z_p^k-cover of P2 satisfying Property Star 
+rho_X_min_res:=function(v,G)
+   return h11(v,G)-h11_tra(v,G); 
+end function;
+
+////////////////////////////////
+////////////////////////////////
+
+// This function returns the first piece of the numerical class of a canonical divisor. When the abelian cover is either smooth or at most with canonical singularities, then this is exactly the numerical class of a canonical divisor. 
+
+Canonical_Sing_Divisor:=function(v, G)
+   Sum:=-3; 
+   for j in [1..#v] do 
+     Sum:=Sum+(1-1/Order(v[j][1]))*v[j][2]; 
+   end for; 
+    if Sum eq 1 then  
+       return "f^*(H)";
+    elif Sum eq -1 then 
+      return "f^*(-H)";
+    elif Sum eq 0 then 
+      return "0"; 
+    else 
+      return Sprintf("f^*(%oH) ", Sum);
+    end if;
+end function; 
+
+// This function takes in input a cyclic quotient singularity and it returns the discrepancies of that singularities, I.e. the coefficients of the corresponding exceptional divisors of its resolution appearing in the numerical class of the canonical divisor. 
+
+Coeff_Discr:=function(r)
+   l:=#HJContinuedFraction(1/r);
+   Coeff_Discr:=[];
+   for i in [1..l] do 
+     Append(~Coeff_Discr, -(1-(Denominator(HJContinuedFractionValue([HJContinuedFraction(1/r)[j] : j in [i..l]]))+Denominator(HJContinuedFractionValue(Reverse([HJContinuedFraction(1/r)[j] : j in [1..i]]))) )/Numerator(1/r)) );
+   end for; 
+   return Coeff_Discr;
+end function; 
+
+// Auxiliary function 
+FormactVector := function(V)
+    
+    S := (Type(V) ne SeqEnum) select ElementToSequence(V) else V;
+    
+    str := "";
+    for i in [1..#S] do
+        val := S[i];
+        
+        // We skip the term if it is equal to zero 
+        if val eq 0 then continue; end if;
+        
+        // We add "+" if it is not the first element and it is positive 
+        if (i gt 1) and (val gt 0) and (str ne "") then
+            str cat:= "+";
+        end if;
+        
+        // We glue the coefficient with E_i
+        if val ne 1 then 
+         str cat:= Sprintf("%oE%o", val, i);
+        else 
+         str cat:= Sprintf("E%o", i);
+        end if; 
+    end for;
+    
+    if str eq "" then str := ""; end if;
+    
+    return str;
+end function;
+
+Excpetional_Correction_Term:=function(Ord_Basket)
+  Ord_Basket:=[<Random(Ord_Basket[j][3]), #Ord_Basket[j][3] > : j in [1..#Ord_Basket] ];
+  
+  Vect_Discr:=[Coeff_Discr(Ord_Basket[j][1]): i in [1..Ord_Basket[j][2]], j in [1..#Ord_Basket]]; 
+
+  Tot_Vec:=[Vect_Discr[j][i]: i in [1..#Vect_Discr[j]], j in [1..#Vect_Discr]]; 
+  
+  return FormactVector(Tot_Vec), Tot_Vec;
+end function;
+
+// This is the MAIN function. It takes in input the building data Dg of an abelian cover of P2 and it returns the numerical class of a canonical divisor, according to Theorem 1.12(4) of the paper. If the abelian cover is not smooth, then some exceptional divisors of the resolution may appear in the formula. 
+//We index the exceptional divisors Ei according to the order of the singularities in the basket. More precisely, if a_1/n_1, \dots, a_k/n_k is the ordered basket of singularities then the exceptional divisors E1, \dots, El are those arising from the minimal resolution of these singularities, indexed in the same left-to-right order in which the singularities a_j/n_j appear in the basket. For instance, if we have a basket of singularities \{1/5, 4/5, 2/5, 3/5\}, then E1 is the exceptional (-5)-curve of 1/5, E2,E3,E4,E5 are the exceptional (-2)-curves of 4/5, E6 and E7 are the exceptional (-3) and (-2)-curves of 2/5, and E8 and E9 are those of 3/5. 
+
+Num_Can_Div:=function(v,G) 
+  Ord_Basket:=Basket_Ab_cover(v,G: Require_Ordered_Basket:=true);
+  Formal_Tot_Vec, Tot_Vec:=Excpetional_Correction_Term(Ord_Basket); 
+  Pull:=Canonical_Sing_Divisor(v,G); 
+  return  Sprintf("The numerical class of the canonical divisor of the minimal resolution of singularities of the abelian cover \n %o \n with respect to the ordered basket \n %o \n is \n K_S=%o%o", v, Ord_Basket,Pull,Formal_Tot_Vec); 
+end function; 
+
+Num_Can_Div_short:=function(v,G) 
+  Ord_Basket:=Basket_Ab_cover(v,G: Require_Ordered_Basket:=true);
+  Formal_Tot_Vec, Tot_Vec:=Excpetional_Correction_Term(Ord_Basket); 
+  Pull:=Canonical_Sing_Divisor(v,G); 
+  return  Sprintf("The numerical class of the canonical divisor of S with respect to the ordered basket \n %o \n is \n K_S=%o%o", Ord_Basket,Pull,Formal_Tot_Vec); 
+end function; 
+
+/////////////
+
+Intersection_Pair_Matrix_HJ:=function(r) 
+   HJ:=HJContinuedFraction(1/r);
+   n := #HJ;
+   M := Matrix(RationalField(), n, n,
+    [ (i eq j) select -HJ[i]
+      else ((Abs(i-j) eq 1) select 1 else 0)
+    : i,j in [1..n] ]);
+
+   return M;
+end function; 
+
+// This function returns the intersection pair matrix between f^*H and the HJ strings of the resolution of the abelian cover. 
+
+Complete_Int_Pair_Matrix:=function(v,G,Ord_Basket) 
+   M:=Matrix(RationalField(),1,1, [Order(G)]); 
+    
+   Ord_Basket:=[<Random(Ord_Basket[j][3]), #Ord_Basket[j][3] > : j in [1..#Ord_Basket] ];
+
+   for i in [1..#Ord_Basket] do 
+      for j in [1..Ord_Basket[i][2]] do 
+          M:=DiagonalJoin(M, Intersection_Pair_Matrix_HJ(Ord_Basket[i][1]));
+      end for; 
+   end for; 
+   return Sprintf("The intersection pair matrix between the pullback of the hyperplane section f^*(H) and of the following ordered Basket of singularities \n %o \n is \n%o", Ord_Basket, M), M; 
+end function; 
+
+
+Self_Int_Can_Divisor_via_Int_Pair_Matrix:=function(v,G,Ord_Basket)
+   K:=[];
+   Sum:=-3; 
+   for j in [1..#v] do 
+     Sum:=Sum+(1-1/Order(v[j][1]))*v[j][2]; 
+   end for;  
+   Append(~K, Sum); 
+   
+   Form_Tot_Vec,Tot_Vec:=Excpetional_Correction_Term(Ord_Basket);
+
+   K:=K cat Tot_Vec; 
+
+   Text, M:=Complete_Int_Pair_Matrix(v,G,Ord_Basket);
+    Ksquare:=(Vector(K)*M)*Transpose(Matrix(Vector(K))); 
+   return Ksquare[1];
+end function; 
+
+////////////////////////////////
+////////////////////////////////
+
+
+
+

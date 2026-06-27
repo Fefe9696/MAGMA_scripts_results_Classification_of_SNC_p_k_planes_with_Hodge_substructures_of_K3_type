@@ -1,0 +1,177 @@
+load"Pardini_Ex_Cover_and_BuildingData.txt";
+load"Basket_and_Invariants_AbCover.txt";
+
+////////////////////////////////
+
+////// These functions are useful for the computation of the orbits of the action of the automorphisms group of G. Here we are assuming for simplicity that G=Zp^k //////////////////
+
+// This function just compute the injective functions between two sequences
+
+function IterativeInjectiveFunctions(A, B)
+    // It verifies that there exists an injective function 
+    if #A gt #B then
+        return []; // It is not possible to define an injective function 
+    end if;
+    
+    injectiveFunctions := [];
+    
+    // The sets of elements of A as a sequence 
+    Aseq := Setseq(A);
+    
+    // Intern recursive function
+    procedure BuildInjective(~injectiveFunctions, currentMap, usedB)
+        if #currentMap eq #Aseq then
+            // If the map is complete, add it to the list of functions 
+            Append(~injectiveFunctions, map<A -> B | currentMap>);
+        else
+            // Find the next elements to map
+            nextIndex := #currentMap + 1;
+            nextA := Aseq[nextIndex];
+            
+            for b in B diff usedB do
+                newMap := currentMap cat [<nextA, b>];
+                newUsedB := Include(usedB, b);
+                
+                BuildInjective(~injectiveFunctions, newMap, newUsedB);
+            end for;
+        end if;
+    end procedure;
+    
+    BuildInjective(~injectiveFunctions, [], {});
+    
+    return injectiveFunctions;
+end function;
+
+////////////////////////////////
+
+// This function takes in input two building data v1 and v2 and returns true if they are equivalent, namely if it there exists an automorphism of G sending the first one to the second. 
+
+Ordered_Set_Dg:=function(v,G)
+     M:=Maximum({v[j][2]: j in [1..#v]}); 
+   Ordered_Set_Dg:=[];
+   for j in [1..M] do 
+      Append(~Ordered_Set_Dg, <#{v[t][1]: t  in [1..#v] | v[t][2] eq j}, j>); 
+   end for; 
+   return Ordered_Set_Dg;
+end function;
+
+PrimaryCheck:=function(v1,v2,G)
+   // The first check is to compare the vectors of Dg of v1 and v2
+   if Ordered_Set_Dg(v1,G) ne Ordered_Set_Dg(v2,G) then return false; end if;
+
+   // The second check is to compare the vectors of Lchi of v1 and v2 
+   
+   if [<#x[1],x[2]>: x in Set_of_Lchi_from_Dg(v1,G)] ne [<#x[1],x[2]>: x in Set_of_Lchi_from_Dg(v2,G)] then return false; end if;
+
+   // The third check is to compare Ksquare
+   if Ksquare(v1,G) ne Ksquare(v2,G) then return false; end if; 
+   
+   return true; 
+end function; 
+
+// Given a set of elements of an abelian group G, it returns a minimal subset of generators of G
+
+MinimalSubSet := function(G, S)
+    local min_S, H, provvisorio;
+    min_S := SequenceToSet(S);
+    H := sub< G | min_S >;
+    
+    for x in min_S do
+        provvisorio := min_S diff {x};
+        if sub< G | provvisorio > eq H then
+            min_S := provvisorio; 
+        end if;
+    end for;
+    return min_S;
+end function;
+
+// The next is the main function 
+
+AreEquivalent:=function(v1,v2,G)
+
+  if not PrimaryCheck(v1,v2,G) then return false, "no automorphism"; end if; 
+  
+  G,psi:=AbelianGroup(G);
+  v1:=[<psi(v1[j][1]),v1[j][2]>: j in [1..#v1]];  
+  v2:=[<psi(v2[j][1]),v2[j][2]>: j in [1..#v2]];  
+  
+  // Let us change v1 with another vector containing the minimal generators G.1,..G.k of G
+
+  Min_Set_Gen_v1:=MinimalSubSet(G, [v1[j][1]: j in [1..#v1]]); 
+  f:=hom<G->G| SetToSequence(Min_Set_Gen_v1)>; 
+  g:=f^-1;
+  v1:=[<g(v1[j][1]), v1[j][2]>: j in [1..#v1]]; 
+  
+  List:=[[]];
+  Gens:=SetToSequence(Generators(G));
+  k:=#Gens;
+
+  Subset_gens_v1:=[];
+  for j in [1..k] do
+    for t in [1..#v1] do 
+       if v1[t][1] eq G.j then 
+          Append(~Subset_gens_v1, t);
+          break t;
+       end if; 
+    end for;
+  end for; 
+
+  X:=SetToSequence({v1[Subset_gens_v1[j]][2]: j in [1..k]});
+  Domain_Sets:=[[Subset_gens_v1[t] : t in [1..k]| v1[Subset_gens_v1[t]][2] eq X[j] ] : j in [1..#X]];
+  CoDomain_Sets:=[[t : t in [1..#v2] | v2[t][2] eq X[j]] : j in [1..#X]];
+
+ 
+  InjectiveFunctions_Sets:=[IterativeInjectiveFunctions(Set(Domain_Sets[j]), Set(CoDomain_Sets[j])): j in [1..#X]];
+
+  if exists(p){u : u in InjectiveFunctions_Sets| #u eq 0} then return false; end if;
+ 
+ // Let us construct the function sending each element of Subset_gens_v1 to the position in Domain_Sets where it is living. 
+
+Pos:=[]; 
+for j  in [1..k] do 
+  for t in [1..#Domain_Sets] do 
+    if Subset_gens_v1[j] in Domain_Sets[t] then Append(~Pos, t); break t; end if; 
+  end for;
+end for; 
+
+ All_functions:={};
+ Prod:=CartesianProduct(InjectiveFunctions_Sets);
+ for phi in Prod do 
+       Include(~All_functions, [phi[Pos[j]](Subset_gens_v1[j]) : j in [1..k]] ); 
+ end for;
+ 
+ All_Isomorphisms:={};
+ PG, y:=PCGroup(G);
+ for phi in All_functions do 
+     real_phi:=hom<G->G | [v2[phi[j]][1] : j in [1..k] ]>;
+     check_real_phi:=hom<PG->PG | [y(v2[phi[j]][1]) : j in [1..k] ]>;
+    if IsHomomorphism(check_real_phi) and #Kernel(check_real_phi) eq 1 then Include(~All_Isomorphisms, real_phi); end if;
+ end for;
+
+for phi in All_Isomorphisms do 
+   if Set(v2) eq Set([< phi(G!v1[i][1]), v1[i][2]>:  i in [1..#v1]]) then return true, psi*(phi*g)*psi^-1; end if;
+end for;
+return false, "no automorphism";
+end function;
+
+////////////////////////////////
+
+// This function takes in input a set of building data Dg and it returns a subset of them that are pairwise not equivalent. 
+
+Set_up_to_Iso:=function(S,G)
+       S_up_toIso:={};
+    Trash:=[]; 
+    for x in S do 
+       if x notin Trash then 
+          Include(~S_up_toIso, x);
+          for y in S do 
+              if AreEquivalent(x,y,G) then Append(~Trash,y); end if; 
+          end for;
+       end if; 
+    end for;
+ 
+    return S_up_toIso;
+end function;
+
+
+////////////////////////////////

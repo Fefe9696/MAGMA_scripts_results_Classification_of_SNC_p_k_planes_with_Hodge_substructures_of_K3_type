@@ -1,0 +1,59 @@
+
+// This function takes in input a character of an abelian group G and an element g in G and it returns the number r_chi^g defined in Fallucca, Pignatelli, Smooth k-double covers of the plane with geometric genus 3, Def. 2.3.  
+
+r_chig:=function(chi,g)
+    ord:=Order(g); 
+    F:=CyclotomicField(ord);
+    for j in [0..ord-1] do 
+        if chi(g) eq F.1^j then 
+           return j; 
+        end if; 
+    end for; 
+end function;
+
+////////////////////////////////
+
+// This function takes in input a character of a group G (we will always use G=Zp^k but it works in general) and a vector v of natural integers indexed by some elements of the group G and it returns a number, the degree of the line bundle L_\chi. 
+
+Pardini_l_chi:=function(chi, v)
+o_chi:=Order(chi); 
+sum:=0;
+for i in [1..#v] do 
+  g:=v[i][1]; // the element g of the group  
+  d_g:=v[i][2];
+    sum:=sum+((o_chi*r_chig(chi,g))/Order(g))*d_g;
+end for;
+return sum/o_chi;
+end function; 
+
+TestPardini:=function(n)
+   return IsIntegral(n);
+end function;
+
+////////////////////////////////
+
+// This function takes in input the building data v of divisors D_g and it returns the set of degrees of the line bundles L_\chi computed via Pardini Formulas (when the base space Y has Pic(Y) torsion free, then L_\chi are uniquely determined by D_g via Pardini Formulas). The output returns three data, the set [ <{chi : l_chi eq j }, j> , j in [0,..Max_lchi] ] , an abelian basis of the group G, and the orders of that abelian basis. The characters chi of the first output are written as a combination of the dual characters of that basis. Thus, for example, if g1 and g2 is a basis of G and e1, e2 is the dual basis of characters, then chi=[1,2] means we are considering the character e1*e2^2. 
+
+Set_of_Lchi_from_Dg:=function(v,G)
+   Set_Lchi:={}; 
+   CharG:=CharacterTable(G); 
+   B, I:=AbelianBasis(G); 
+   M:=0;
+   for chi in CharG do 
+     Seq:=[];
+     for j in [1..#B] do
+         F:=CyclotomicField(I[j]);
+         omega := F.1;  // omega is the Order(B[j])-th root of unity
+         for t in [0..I[j]-1] do 
+           if chi(B[j]) eq F.1^t then Append(~Seq, t); break t; end if;
+         end for;
+     end for;  
+     Include(~Set_Lchi, <Seq, Pardini_l_chi(chi, v)>); 
+   end for; 
+   M:=Maximum({l_chi[2]: l_chi in Set_Lchi}); 
+   Ordered_Set_Lchi:=[];
+   for j in [0..M] do 
+      Append(~Ordered_Set_Lchi, <{lchi[1]: lchi in Set_Lchi | lchi[2] eq j}, j>); 
+   end for; 
+   return Ordered_Set_Lchi, B, I; 
+end function; 
