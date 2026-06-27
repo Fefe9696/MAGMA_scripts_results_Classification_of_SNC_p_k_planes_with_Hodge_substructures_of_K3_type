@@ -1,0 +1,13 @@
+load"Main_Script_Classification_Algorithm.txt";
+
+// From Proposition 2.2 we have that card=1, and sum_dg=6. 
+
+G:=AbelianGroup([2]);
+
+Building_Data(1,6,G); 
+
+{
+    [
+        <G.1, 6>
+    ]
+}

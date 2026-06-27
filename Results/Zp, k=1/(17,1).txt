@@ -1,0 +1,22 @@
+load"Main_Script_Classification_Algorithm.txt";
+
+// From Proposition 2.2 we have that card<=Min(p-1,sum_dg), and sum_dg=4. 
+
+G:=AbelianGroup([17]);
+
+p:=Order(G);
+sum_dg:=4;
+
+for card in [1..Minimum(p-1,sum_dg)] do 
+   Res:=Building_Data(card,4,G); 
+   if not IsEmpty(Res) then Res; end if; 
+end for; 
+
+{
+    [
+        <G.1, 1>,
+        <15*G.1, 1>,
+        <8*G.1, 1>,
+        <10*G.1, 1>
+    ]
+}

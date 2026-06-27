@@ -1,0 +1,23 @@
+load"Main_Script_Classification_Algorithm.txt";
+
+k:=2; 
+
+for p in [11,13,17,19] do 
+
+G:=AbelianGroup([p: j in [1..k]]);
+sum_dg:=4;
+ Count:=0; 
+ for card in [k..sum_dg] do  
+    Res:=Building_Data(card,sum_dg,G); 
+    if not IsEmpty(Res) then Res; 
+    Count:=Count+1; 
+    end if;
+ end for;  
+ 
+end for; 
+ 
+if Count eq 0 then {}; end if; 
+
+{}
+
+// Thus, no other cases occur. 

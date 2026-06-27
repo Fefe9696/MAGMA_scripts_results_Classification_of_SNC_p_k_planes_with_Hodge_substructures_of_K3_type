@@ -1,0 +1,15 @@
+// From Proposition 2.3 and 2.5, for k=3 we only have the cover of Hirzebruch Type 
+
+k:=3; 
+
+
+G:=AbelianGroup([5: j in [1..k]]);
+
+{
+    [
+        <G.1, 1>,
+        <G.2, 1>,
+        <G.3, 1>,
+        <4*(G.1+G.2+G.3),1>
+    ]
+}
