@@ -415,6 +415,6 @@ basket
  [] 
  is 
  K_S=f^*(H)
-Surface: General Type D-(3,2)1
+Surface: General Type D-(3,3)1
 -------------------------
 -------------------------
