@@ -130,7 +130,7 @@ end function;
 ////////////////////////////////
 
 
-// This function computes the correction term to the self-intersection of the canonical divisor of a cyclic quotient singularity 1/n(1,a), according to Theorem 1.12 of our paper 
+// This function computes the correction term to the self-intersection of the canonical divisor of a cyclic quotient singularity 1/n(1,a), according to Definition 1.13 Theorem 1.14 of our paper 
 
 Correction_Term_K_square_sing_point:=function(r)
   HJ:=HJContinuedFraction(1/r); 
@@ -329,7 +329,7 @@ Excpetional_Correction_Term:=function(Ord_Basket)
   return FormactVector(Tot_Vec), Tot_Vec;
 end function;
 
-// This is the MAIN function. It takes in input the building data Dg of an abelian cover of P2 and it returns the numerical class of a canonical divisor, according to Theorem 1.12(4) of the paper. If the abelian cover is not smooth, then some exceptional divisors of the resolution may appear in the formula. 
+// This is the MAIN function. It takes in input the building data Dg of an abelian cover of P2 and it returns the numerical class of a canonical divisor, according to Theorem 1.14(16) of the paper. If the abelian cover is not smooth, then some exceptional divisors of the resolution may appear in the formula. 
 //We index the exceptional divisors Ei according to the order of the singularities in the basket. More precisely, if a_1/n_1, \dots, a_k/n_k is the ordered basket of singularities then the exceptional divisors E1, \dots, El are those arising from the minimal resolution of these singularities, indexed in the same left-to-right order in which the singularities a_j/n_j appear in the basket. For instance, if we have a basket of singularities \{1/5, 4/5, 2/5, 3/5\}, then E1 is the exceptional (-5)-curve of 1/5, E2,E3,E4,E5 are the exceptional (-2)-curves of 4/5, E6 and E7 are the exceptional (-3) and (-2)-curves of 2/5, and E8 and E9 are those of 3/5. 
 
 Num_Can_Div:=function(v,G) 
