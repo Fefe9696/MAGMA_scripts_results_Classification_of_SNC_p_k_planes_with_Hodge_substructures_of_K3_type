@@ -49,7 +49,7 @@ Coeff_HJ_Strict_Transform:=function(r)
    return Coeff_HJ;
 end function; 
 
-// This function takes in input the j-th irreducible component Delta_g of the branch locus with local monodromy g\in G\cong Z/p^k and it returns its strict transform in terms of the pullback of the component and  the Hirzebruch-Jung strings of the resolution, according to Proposition 1.15. 
+// This function takes in input the j-th irreducible component Delta_g of the branch locus with local monodromy g\in G\cong Z/p^k and it returns its strict transform in terms of the pullback of the component and  the Hirzebruch-Jung strings of the resolution, according to Proposition 1.16. 
 
 Strict_Transform_Delta_g:=function(v,G, j )
    Delta_g:=v[j];
